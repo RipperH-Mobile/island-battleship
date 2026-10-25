@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ยุทธนาวีเกาะปืน</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e3edec;--bg2:#c9dcde;--grid:rgba(11,93,122,.07);--ink:#0c2230;--mut:#4a6270;--card:#fbfdfd;--line:#a9c2c9;--acc:#0b5d7a;--accfg:#fff;--brass:#a8741c;--ok:#2f9e63;--sea:#2f82a6;--sea2:#266d8d;--fog:#5b8397;--land:#e3d29b;--land2:#cdb878;--hull:#4f5d66;--deck:#97a6ae;--hit:#d9432c;--sunk:#6f1a10;--sh:0 6px 20px rgba(8,38,56,.13);--p0:#f2b134;--p1:#4cc3e8;--p2:#ef7a76;--p3:#7ed957;--p4:#b894f5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06141b;--bg2:#0d2a39;--grid:rgba(111,208,238,.06);--ink:#e6f1f3;--mut:#8fa9b3;--card:#0e2430;--line:#22485a;--acc:#6fd0ee;--accfg:#042230;--brass:#e0b24f;--sea:#1c6482;--sea2:#16526c;--fog:#2c6179;--land:#bba76c;--land2:#a08d57;--hull:#9aa8b0;--deck:#cdd8dc;--sh:0 8px 24px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#06141b;--bg2:#0d2a39;--grid:rgba(111,208,238,.06);--ink:#e6f1f3;--mut:#8fa9b3;--card:#0e2430;--line:#22485a;--acc:#6fd0ee;--accfg:#042230;--brass:#e0b24f;--sea:#1c6482;--sea2:#16526c;--fog:#2c6179;--land:#bba76c;--land2:#a08d57;--hull:#9aa8b0;--deck:#cdd8dc;--sh:0 8px 24px rgba(0,0,0,.4)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;color:var(--ink);font:16px/1.55 Sarabun,"Noto Sans Thai",sans-serif;background:radial-gradient(900px 480px at 85% -8%,var(--bg2),transparent 70%),linear-gradient(var(--grid) 1px,transparent 1px) 0 0/34px 34px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/34px 34px,var(--bg);background-attachment:fixed;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+main{max-width:1040px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;align-items:center;gap:14px;margin:6px 0 16px}
+.logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(145deg,var(--acc),var(--sea));display:grid;place-items:center;font-size:27px;color:#fff;box-shadow:var(--sh),inset 0 0 0 2px rgba(255,255,255,.25);flex:none}
+h1{font:700 30px/1.15 Kanit,sans-serif;letter-spacing:.4px;margin:0}
+h2{font:500 17px Kanit,sans-serif;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+p.sub{margin:2px 0 8px;color:var(--mut)}
+.top p.sub{margin:0}
+details,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:14px;box-shadow:var(--sh)}
+details summary{cursor:pointer;font:500 16px Kanit,sans-serif}
+details li{margin:3px 0}
+#home{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px;align-items:start}
+#home .card{margin:0}
+.inp{font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0;width:170px}
+.code{font:700 42px/1.2 Kanit,sans-serif;letter-spacing:10px;text-align:center;padding:8px 8px 8px 18px;border:2px dashed var(--brass);border-radius:14px;color:var(--acc);background:var(--bg);margin:6px 0 10px}
+.b{font:600 15px Sarabun,sans-serif;padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.b:hover:not(:disabled){transform:translateY(-1px);box-shadow:var(--sh)}
+.b.on{border-color:var(--brass);box-shadow:inset 0 0 0 2px var(--brass)}
+.b.go{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+.b:disabled{opacity:.45;cursor:not-allowed}
+.b:focus-visible,.c:focus-visible,.inp:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:center}
+label{color:var(--mut);font-size:15px}
+.row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.panel{flex:1 1 280px;min-width:0}
+.step{display:flex;gap:12px;align-items:center;margin:8px 0}
+.sn{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--brass);color:var(--brass);font:700 14px Kanit,sans-serif}
+.sn.done{background:var(--ok);border-color:var(--ok);color:#fff;font-size:0}
+.sn.done::after{content:"✓";font-size:15px}
+.step .btns{margin:0}
+#hint{font-size:14px}
+/* boards */
+.bd{display:grid;grid-template-columns:16px repeat(8,1fr);gap:3px;width:100%;max-width:360px;background:var(--line);padding:3px;border-radius:12px;box-shadow:0 0 0 2px var(--brass),var(--sh)}
+#sb{width:min(92vw,440px);max-width:none}
+.lb{font:600 11px/1 Sarabun,sans-serif;font-style:normal;color:var(--mut);display:grid;place-items:center;background:transparent}
+.c{aspect-ratio:1;position:relative;border:0;padding:0;font:inherit;color:inherit;overflow:hidden;border-radius:4px;background:repeating-linear-gradient(115deg,rgba(255,255,255,.07) 0 2px,transparent 2px 9px),linear-gradient(160deg,var(--sea),var(--sea2))}
+.c svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.c svg.v{transform:rotate(90deg)}
+.c.fog{background:repeating-linear-gradient(45deg,rgba(255,255,255,.08) 0 3px,transparent 3px 8px),var(--fog)}
+.c.land{background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4) 0 1.5px,transparent 2.5px) 0 0/9px 9px,linear-gradient(150deg,var(--land),var(--land2))}
+.c.ld{filter:brightness(.82) saturate(.8)}
+.c.ship.hit{--hull:#c0392b;--deck:#ef8e7e}
+.c.ship.sunk{--hull:#5a1a10;--deck:#8a3a2a}
+.c.hit:not(.ship){background:radial-gradient(circle,#ff8a6a,var(--hit))}
+.c.sunk:not(.ship){background:radial-gradient(circle,#a3321f,var(--sunk))}
+.c.hit::after,.c.sunk::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:700;text-shadow:0 0 3px #000}
+.c.sunk::after{content:"☠"}
+.c.miss::after{content:"";position:absolute;inset:26%;border-radius:50%;border:2px solid rgba(255,255,255,.6);box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.c.pv.ok{outline:3px solid #3bb273;outline-offset:-3px;z-index:1}
+.c.pv.bad{outline:3px solid var(--hit);outline-offset:-3px;z-index:1}
+.c.sel{box-shadow:inset 0 0 0 3px #f2c230;background-color:rgba(242,194,48,.25)}
+.c.sel::before{content:attr(data-n);position:absolute;inset:0;display:grid;place-items:center;font:700 15px Kanit,sans-serif;color:#fff;text-shadow:0 0 3px #000;z-index:1}
+.c.rm::before{content:attr(data-n);position:absolute;left:0;top:0;z-index:1;font:700 10px/1.35 Kanit,sans-serif;color:#06141b;background:#fff;padding:0 4px;border-radius:0 0 5px 0}
+.c.rm[data-n="1"]::before{background:var(--p0)}.c.rm[data-n="2"]::before{background:var(--p1)}.c.rm[data-n="3"]::before{background:var(--p2)}.c.rm[data-n="4"]::before{background:var(--p3)}.c.rm[data-n="5"]::before{background:var(--p4)}
+@keyframes pu{50%{box-shadow:inset 0 0 0 3px #fff,0 0 0 5px var(--hit)}}
+.c.cur{box-shadow:inset 0 0 0 3px #fff,0 0 0 2px var(--hit);z-index:2;animation:pu .9s infinite}
+.act .fog,.act .tur.dead{cursor:crosshair}
+.act .fog:hover{transform:scale(1.1);z-index:3;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+/* game */
+#stat.stk{position:sticky;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:20}
+#stat{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--brass);border-radius:14px;padding:10px 16px;margin-bottom:12px;box-shadow:var(--sh)}
+#stat strong{font:500 19px Kanit,sans-serif}
+.rd{display:inline-block;background:var(--acc);color:var(--accfg);font:600 14px Kanit,sans-serif;border-radius:999px;padding:0 12px;margin-right:6px}
+.pip{color:var(--hit);font:700 18px Kanit,sans-serif}
+.shot{font:500 20px/1.35 Kanit,sans-serif;margin:8px 0;padding:8px 12px;border-left:5px solid var(--line);background:var(--bg);border-radius:6px}
+.shot.r-h,.shot.r-k,.shot.r-d{border-color:var(--hit)}.shot.r-w{border-color:var(--sea)}.shot.r-l{border-color:var(--land2)}.shot.r-p,.shot.r-q{border-color:var(--brass)}
+.pl{margin:6px 0 0;padding-left:18px}
+.pl .now{font-weight:700;color:var(--acc)}
+.win{font:700 30px Kanit,sans-serif;text-align:center;padding:6px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chip{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 13px 3px 4px;font-size:14px;box-shadow:var(--sh)}
+.chip em{font-style:normal;color:var(--mut);font-size:13px}
+.chip.me{border-color:var(--acc)}
+.chip.now{border-color:var(--hit);box-shadow:0 0 0 3px rgba(217,67,44,.3)}
+.chip.x{opacity:.45;text-decoration:line-through}
+.nb,.av{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--pc);color:#06141b;font:700 13px Kanit,sans-serif;flex:none}
+.p0{--pc:var(--p0)}.p1{--pc:var(--p1)}.p2{--pc:var(--p2)}.p3{--pc:var(--p3)}.p4{--pc:var(--p4)}
+#opps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:14px;align-items:start}
+.opp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px;box-shadow:var(--sh)}
+.opp.lock .bd{opacity:.5}
+.opp.dead{opacity:.4;pointer-events:none}
+.opp.tgt{border-color:var(--hit);box-shadow:0 0 0 3px rgba(217,67,44,.3),var(--sh)}
+.tg{margin-left:auto;font:600 12px Sarabun,sans-serif;background:var(--hit);color:#fff;border-radius:999px;padding:1px 10px}
+.fleet{display:inline-block;margin:8px 0 0;padding:2px 12px;border:1px solid var(--line);border-radius:999px;color:var(--mut);font-size:13px}
+.fleet s{color:var(--sunk)}
+.ic svg{width:16px;height:16px;vertical-align:middle;margin-right:-1px}
+.ic.big svg{width:22px;height:22px}
+.ic{--hull:#56636b;--deck:#9aa8af}
+/* lobby */
+#lp{list-style:none;padding:0;margin:8px 0}
+#lp li{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:6px;background:var(--bg)}
+#lp small{color:var(--mut)}
+.av{width:30px;height:30px;font-size:15px}
+.rb{margin-left:auto;padding:1px 12px;border-radius:999px;background:var(--bg2);color:var(--mut);font-size:13px}
+.rb.ok{background:var(--ok);color:#fff}
+#annw{max-width:600px}
+#annw ol,#log{list-style:none;padding:0;margin:6px 0}
+#annw li,#log li{background:var(--bg);border-left:4px solid var(--line);border-radius:8px;padding:5px 12px;margin-bottom:5px;font-size:15px;color:var(--mut)}
+#annw li:first-child,#log li:first-child{color:var(--ink);font-weight:600;border-color:var(--hit)}
+#log{max-width:600px}
+@media(max-width:600px){#stat .pl{display:none}#opps.rv{grid-template-columns:repeat(2,1fr);gap:8px}.rv .opp{padding:6px}.rv .opp h2{font-size:14px}h1{font-size:25px}.code{font-size:34px;letter-spacing:7px}}
+#lobby .card{max-width:640px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><div class="logo">⚓</div><div><h1>ยุทธนาวีเกาะปืน</h1><p class="sub">Battleship หลายผู้เล่น วางเกาะเอง มีป้อมปืน และเล่นออนไลน์ได้</p></div></header>
+<div class="card" id="conn" hidden>การเชื่อมต่อหลุด กำลังเชื่อมต่อใหม่…</div>
+<details><summary>กติกา</summary>
+<ul>
+<li>กระดาน 8 คอลัมน์ × 6 แถว (A–F) เรือ 5 ลำ ยาว 1, 1, 2, 3, 4 ช่อง วางบนดินไม่ได้</li>
+<li>วางพื้นดินเอง 12 ช่อง แบ่งเป็นเกาะได้ไม่เกิน 2 เกาะ (ห้ามมากกว่า 2) แต่ละเกาะต่อกันแบบ + (ไม่นับทแยง) ป้อมปืน 3 ป้อมวางบนดิน</li>
+<li>กระสุนต่อรอบ = 1 + จำนวนป้อมที่เหลือ (รอบแรกมี 4 นัด)</li>
+<li>พื้นดินของคุณโดนยิง ตาหน้าได้กระสุน +1 ต่อนัด ป้อมโดนยิงครั้งแรกจะพัง กระสุน −1 แต่ยิงป้อมที่พังแล้วซ้ำ เจ้าของได้ +1</li>
+<li>ยิงพร้อมกัน: ทุกคนเลือกเป้าหมายก่อน แล้วระบบเปิดเผยว่าใครยิงใครทีละเทิร์น ห้ามยิงคนเดิมซ้ำ จนกว่าจะเลือกครบทุกคนแล้วยังมีกระสุนเหลือ</li>
+<li>ผลัดกันยิง: ผลัดทีละคน เลือกกระสุนทั้งตา ใช้กติกาห้ามยิงคนเดิมซ้ำเหมือนกัน</li>
+<li>กระดานคู่ต่อสู้แสดงเฉพาะตอนถึงเทิร์นยิง และเก็บไว้เฉพาะจุดที่คุณยิงโดนเรือ ประวัติก็บันทึกเฉพาะการยิงโดนเรือของคุณ</li>
+<li>ช่วงเปิดเผยการยิง ทุกคนเห็นว่าใครยิงใคร ช่องไหน และผลเป็นอย่างไร แล้วจะซ่อนของคนอื่นเมื่อจบรอบ</li>
+<li>ยิงช่องเดิมซ้ำได้ แต่เปลืองกระสุน (ยิงพื้นดินซ้ำ เจ้าของได้กระสุน +1 ทุกนัด)</li>
+<li>คนสุดท้ายที่ยังมีเรือเหลือเป็นผู้ชนะ</li>
+</ul></details>
+
+<section id="home">
+<div class="card" id="rjc" hidden><h2>เกมที่ยังค้างอยู่</h2><p class="sub" id="rjt"></p><div class="btns"><button class="b go" id="rj">กลับเข้าเกม</button><button class="b" id="rf">ลืมห้องนี้</button></div></div>
+<div class="card"><h2>👤 ชื่อผู้เล่น</h2><div class="btns"><input id="nm" class="inp" maxlength="12" placeholder="ใส่ชื่อของคุณ" autocomplete="off"></div></div>
+<div class="card"><h2>🌐 เล่นออนไลน์</h2>
+<div class="btns"><button class="b go" id="mk">สร้างห้อง</button>
+<input id="jc" class="inp" maxlength="6" placeholder="รหัสห้อง" autocomplete="off"><button class="b" id="jn">เข้าห้อง</button></div>
+<p class="sub" id="net"></p></div>
+<div class="card"><h2>🤖 เล่นกับบอท</h2>
+<div class="btns"><label>ผู้เล่น <select id="np" class="b"><option>2</option><option>3</option><option selected>4</option><option>5</option></select></label>
+<label>โหมด <select id="md" class="b"><option value="sim">ยิงพร้อมกัน</option><option value="seq">ผลัดกันยิง</option></select></label>
+<label>ความเร็วประกาศ <select id="spd" class="b"><option value="1300">เร็ว</option><option value="2200" selected>ปกติ</option><option value="3500">ช้า</option></select></label>
+<button class="b go" id="solo">เริ่มวางกำลัง</button></div></div>
+</section>
+
+<section id="lobby" hidden>
+<div class="card">
+<h2>ห้องของเรา</h2>
+<div class="code" id="lc"></div>
+<div class="btns"><input id="lk" class="inp" style="width:min(100%,420px)" readonly><button class="b" id="cp">คัดลอกลิงก์</button></div>
+<h2>ผู้เล่นที่เข้าร่วมแล้ว</h2>
+<ul id="lp"></ul>
+<div class="btns" id="hc">
+<label>โหมด <select id="lmode" class="b"><option value="sim">ยิงพร้อมกัน</option><option value="seq">ผลัดกันยิง</option></select></label>
+<label>ความเร็วประกาศ <select id="lspd" class="b"><option value="1300">เร็ว</option><option value="2200" selected>ปกติ</option><option value="3500">ช้า</option></select></label>
+<label>เติมบอท <select id="nb" class="b"><option>0</option><option>1</option><option>2</option><option>3</option></select></label>
+<button class="b go" id="st0">เริ่มวางกำลัง</button>
+</div>
+<div class="btns"><button class="b go" id="rd" hidden>พร้อม</button></div>
+<p class="sub" id="lmsg"></p>
+<button class="b" id="lv">ออกจากห้อง</button>
+</div>
+</section>
+
+<section id="setup" hidden>
+<h2>วางกำลังของคุณ</h2>
+<div class="row">
+<div><div class="bd" id="sb"></div></div>
+<div class="card panel">
+<div id="pal"></div>
+<div class="btns">
+<button class="b" id="rot"></button>
+<button class="b" id="rl">สุ่มเกาะใหม่</button>
+<button class="b" id="cl">ล้างเกาะ</button>
+<button class="b" id="ra">สุ่มวางทั้งหมด</button>
+</div>
+<div class="btns"><button class="b go" id="go">เริ่มเกม</button></div>
+<p class="sub" id="hint"></p>
+<p class="sub" id="wait"></p>
+</div>
+</div>
+</section>
+
+<section id="game" hidden>
+<div id="stat"></div>
+<div class="chips" id="chips"></div>
+<div class="row" id="opps"></div>
+<div class="card" id="annw" hidden><h2>ประกาศการยิง</h2><ol id="ann"></ol></div>
+<h2 style="margin-top:14px">ประวัติการยิงโดนเรือของคุณ</h2>
+<ol id="log"></ol>
+</section>
+</main>
+<script>
+const $=s=>document.querySelector(s),R=n=>Math.random()*n|0;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const W=8,H=6,NC=W*H,LEN=[1,1,2,3,4],BN=['ฟ้าใส','พายุ','ทะเลดำ','มรกต'];
+const INVITE=typeof claude!='undefined'?'https://claude.ai/artifact/E374Dz68eUNgsNmKMBZf7e#':location.origin+location.pathname+'#';
+const mkB=()=>({g:Array.from({length:NC},()=>({l:0,t:0,s:-1,x:0})),sh:LEN.map(n=>({n,h:0,c:[]}))});
+const rc=i=>[Math.floor(i/W),i%W];
+const nb=i=>{const[r,c]=rc(i),o=[];if(r>0)o.push(i-W);if(r<H-1)o.push(i+W);if(c>0)o.push(i-1);if(c<W-1)o.push(i+1);return o};
+const nb8=i=>{const[r,c]=rc(i),o=[];for(let a=-1;a<2;a++)for(let b=-1;b<2;b++){const y=r+a,x=c+b;if(y>=0&&y<H&&x>=0&&x<W)o.push(y*W+x)}return o};
+const coord=i=>String.fromCharCode(65+rc(i)[0])+(rc(i)[1]+1);
+const nT=b=>b.g.filter(c=>c.t).length,landN=b=>b.g.filter(c=>c.l).length;
+const turAlive=b=>b.g.filter(c=>c.t&&!c.x).length;
+function comps(b){const seen=new Set(),out=[];b.g.forEach((c,i)=>{if(!c.l||seen.has(i))return;let n=0;const st=[i];seen.add(i);
+ while(st.length){const x=st.pop();n++;nb(x).forEach(j=>{if(b.g[j].l&&!seen.has(j)){seen.add(j);st.push(j)}})}out.push(n)});return out}
+const landOK=b=>landN(b)==12&&comps(b).length<=2;
+
+function island(n,bad){const s=[];let st=R(NC),k=0;while(bad.has(st)&&k++<300)st=R(NC);if(bad.has(st))return null;s.push(st);
+ while(s.length<n){const cand=[...new Set(s.flatMap(nb))].filter(i=>!s.includes(i)&&!bad.has(i));if(!cand.length)return null;s.push(cand[R(cand.length)])}return s}
+function clearUnits(b){b.g.forEach(c=>{c.t=0;c.s=-1;c.x=0});b.sh.forEach(s=>{s.h=0;s.c=[]})}
+function genLand(b){for(;;){let i1,i2=[];
+ if(R(3)==0){i1=island(12,new Set());if(!i1)continue}
+ else{const a=4+R(5);i1=island(a,new Set());if(!i1)continue;i2=island(12-a,new Set(i1.flatMap(nb8)));if(!i2)continue}
+ clearUnits(b);b.g.forEach(c=>c.l=0);[...i1,...i2].forEach(i=>b.g[i].l=1);return}}
+function randT(b){b.g.forEach(c=>c.t=0);b.g.map((c,i)=>i).filter(i=>b.g[i].l).sort(()=>Math.random()-.5).slice(0,3).forEach(i=>b.g[i].t=1)}
+const cellsOf=(i,n,h)=>{const[r,c]=rc(i);if(h?c+n>W:r+n>H)return null;return Array.from({length:n},(_,k)=>h?i+k:i+k*W)};
+const okCells=(b,cs)=>cs&&cs.every(i=>!b.g[i].l&&b.g[i].s<0);
+function putShip(b,k,cs){b.sh[k].c=cs;cs.forEach(i=>b.g[i].s=k)}
+function dropShip(b,k){b.sh[k].c.forEach(i=>b.g[i].s=-1);b.sh[k].c=[]}
+function randS(b){b.sh.forEach((s,k)=>dropShip(b,k));
+ for(let k=LEN.length-1;k>=0;k--){let done=false;for(let t=0;t<300&&!done;t++){const cs=cellsOf(R(NC),LEN[k],!!R(2));if(okCells(b,cs)){putShip(b,k,cs);done=true}}if(!done)return false}return true}
+function mkBot(){const b=mkB();do{genLand(b);randT(b)}while(!randS(b));return b}
+const enc=b=>b.g.map(c=>c.s>=0?'abcde'[c.s]:c.t?'T':c.l?'l':'.').join('');
+function dec(s){const b=mkB();[...String(s).slice(0,NC)].forEach((ch,i)=>{const c=b.g[i];if(ch=='T'){c.l=c.t=1}else if(ch=='l')c.l=1;else if(ch>='a'&&ch<='e'){const k=ch.charCodeAt(0)-97;c.s=k;b.sh[k].c.push(i)}});return b}
+const validBoard=b=>landOK(b)&&nT(b)==3&&b.sh.every((s,k)=>s.c.length==LEN[k])&&b.g.every(c=>!(c.s>=0&&c.l))&&b.g.every(c=>!c.t||c.l);
+
+/* ---------- art ---------- */
+function shipSvg(k,v){const H_='var(--hull)',D='var(--deck)',P={
+ m:`<rect y="28" width="100" height="44" fill="${H_}"/><rect y="38" width="100" height="24" fill="${D}"/><rect x="34" y="42" width="30" height="16" rx="3" fill="${H_}"/>`,
+ t:`<path d="M16 28H100V72H16Q2 72 2 50Q2 28 16 28Z" fill="${H_}"/><path d="M18 38H100V62H18Q10 62 10 50Q10 38 18 38Z" fill="${D}"/><circle cx="46" cy="50" r="7" fill="${H_}"/>`,
+ b:`<path d="M0 28H60Q98 36 98 50Q98 64 60 72H0Z" fill="${H_}"/><path d="M0 38H58Q88 42 88 50Q88 58 58 62H0Z" fill="${D}"/><circle cx="48" cy="50" r="7" fill="${H_}"/>`,
+ s:`<path d="M10 30H60Q96 38 96 50Q96 62 60 70H10Q2 70 2 50Q2 30 10 30Z" fill="${H_}"/><path d="M14 40H58Q84 44 84 50Q84 56 58 60H14Q10 60 10 50Q10 40 14 40Z" fill="${D}"/><rect x="28" y="44" width="18" height="12" rx="3" fill="${H_}"/>`}[k];
+ return`<svg viewBox="0 0 100 100"${v?' class="v"':''}>${P}</svg>`}
+const turSvg=d=>d?`<svg viewBox="0 0 100 100"><circle cx="50" cy="56" r="30" fill="#55585a" opacity=".85"/><rect x="36" y="22" width="9" height="26" rx="3" fill="#2a2d2e" transform="rotate(-25 40 48)"/><path d="M30 36L70 76M70 36L30 76" stroke="#e5533c" stroke-width="10" stroke-linecap="round"/></svg>`
+ :`<svg viewBox="0 0 100 100"><circle cx="50" cy="58" r="30" fill="#3d4d38" stroke="#1d2618" stroke-width="5"/><circle cx="50" cy="58" r="13" fill="#7b8e72"/><rect x="37" y="6" width="9" height="44" rx="3" fill="#1d2618"/><rect x="54" y="6" width="9" height="44" rx="3" fill="#1d2618"/></svg>`;
+const strip=n=>`<span class="ic">`+(n==1?shipSvg('s'):shipSvg('t')+shipSvg('m').repeat(n-2)+shipSvg('b'))+`</span>`;
+
+/* ---------- board rendering ---------- */
+function cls(b,i,m,cd){const c=b.g[i];let k='c';
+ if(m=='e'){if(cd=='0')return'c fog';return'c '+({w:'miss',l:'land ld',t:'land tur dead',h:'hit',k:'sunk'}[cd]||'')}
+ if(c.l)k+=' land'+(cd=='l'?' ld':'');if(c.t)k+=' tur'+(cd=='t'?' dead':'');
+ if(c.s>=0)k+=' ship'+(cd=='h'?' hit':cd=='k'?' sunk':'');else if(cd=='w')k+=' miss';return k}
+function inner(b,i,m,cd){const c=b.g[i];if(m=='e')return cd=='t'?turSvg(1):'';let h='';if(c.t)h+=turSvg(cd=='t');
+ if(c.s>=0){const s=b.sh[c.s],n=s.c.length,x=s.c.indexOf(i);h+=shipSvg(n==1?'s':x==0?'t':x==n-1?'b':'m',n>1&&s.c[1]-s.c[0]==W)}return h}
+function bhtml(b,m,o={}){let h='<span class="lb"></span>'+Array.from({length:W},(_,c)=>`<i class="lb">${c+1}</i>`).join('');
+ for(let r=0;r<H;r++){h+=`<i class="lb">${String.fromCharCode(65+r)}</i>`;
+  for(let c=0;c<W;c++){const i=r*W+c,cd=o.codes?o.codes[i]:'0';let k=cls(b,i,m,cd);
+   if(o.pv&&o.pv.includes(i))k+=' pv '+(o.ok?'ok':'bad');if(o.sel&&o.sel[i])k+=' sel';else if(o.rm&&o.rm[i])k+=' rm';if(o.cur===i)k+=' cur';
+   h+=`<button class="${k}" data-i="${i}" data-n="${(o.sel&&o.sel[i])||(o.rm&&o.rm[i])||''}" aria-label="${coord(i)}">${inner(b,i,m,cd)}</button>`}}
+ return h}
+
+/* ---------- app state ---------- */
+const ME={pid:Math.random().toString(36).slice(2,10),name:'',idx:0};
+let MODE='off',RM=null,ROOMNS=null,CODE='',G=null,PL=[],V=null,LOG=[],PLAN=[],HINT='',SUB=false,REJ=false,RDY=false,GRACE=0,HITS=[],HK=new Set();
+const show=id=>['home','lobby','setup','game'].forEach(s=>$('#'+s).hidden=s!=id);
+
+/* ---------- setup (place land, turrets, ships) ---------- */
+const S={b:mkB(),sel:'L',h:true,hov:-1,locked:false};
+genLand(S.b);
+function nextSel(){const k=S.b.sh.findIndex(s=>!s.c.length);S.sel=!landOK(S.b)?'L':nT(S.b)<3?'T':(k>=0?k:null)}
+nextSel();
+function rSetup(){
+ let pv=null,ok=false;const b=S.b;
+ if(S.hov>=0&&S.sel!==null&&!S.locked){const c=b.g[S.hov];
+  if(S.sel=='L'){const o=c.l;c.l=o?0:1;ok=c.s<0&&landN(b)<=12&&comps(b).length<=2;c.l=o;pv=[S.hov]}
+  else if(S.sel=='T'){pv=[S.hov];ok=!!c.l&&!c.t&&nT(b)<3}
+  else if(!b.sh[S.sel].c.length){const cs=cellsOf(S.hov,LEN[S.sel],S.h);pv=cs||[S.hov];ok=okCells(b,cs)}}
+ $('#sb').innerHTML=bhtml(b,'s',{pv,ok});
+ $('#pal').innerHTML=`<div class="step"><span class="sn${landOK(b)?' done':''}">1</span><button class="b ${S.sel=='L'?'on':''}" data-k="L">🏝 เกาะ ${landN(b)}/12</button></div>`
+  +`<div class="step"><span class="sn${nT(b)==3?' done':''}">2</span><button class="b ${S.sel=='T'?'on':''}" data-k="T"><span class="ic big">${turSvg(0)}</span> ป้อมปืน ${nT(b)}/3</button></div>`
+  +`<div class="step"><span class="sn${b.sh.every(s=>s.c.length)?' done':''}">3</span><div class="btns">`+LEN.map((n,k)=>`<button class="b ${S.sel===k?'on':''}" data-k="${k}">${strip(n)} ${b.sh[k].c.length?'✓':''}</button>`).join('')+`</div></div>`;
+ $('#rot').textContent='หมุนเรือ: '+(S.h?'แนวนอน':'แนวตั้ง')+' (R)';
+ const ready=validBoard(b);
+ $('#go').disabled=!ready||S.locked;$('#go').textContent=MODE=='off'?'เริ่มเกม':'พร้อม';
+ ['rot','rl','cl','ra'].forEach(x=>$('#'+x).disabled=S.locked);
+ $('#hint').textContent=(S.msg?S.msg+' · ':'')+(ready?'พร้อมแล้ว':`เกาะ: ${comps(b).join(' + ')||'ยังไม่มี'} ช่อง (รวม 12 ช่อง ไม่เกิน 2 เกาะ) แตะช่องน้ำเพื่อสร้างดิน แตะดินเพื่อลบ จากนั้นวางป้อมบนดินและวางเรือ แตะของที่วางแล้วเพื่อยกไปวางใหม่`);saveSess()}
+$('#sb').addEventListener('click',e=>{const t=e.target.closest('.c');if(!t||S.locked)return;const i=+t.dataset.i,b=S.b,c=b.g[i];
+ if(S.sel=='L'){if(c.s>=0)return;const was=c.l,wt=c.t;
+  if(c.l){c.l=0;c.t=0}else if(landN(b)<12)c.l=1;else return;
+  if(comps(b).length>2){c.l=was;c.t=wt;S.msg='เกาะต้องไม่เกิน 2 เกาะ ห้ามแยกเป็น 3 เกาะขึ้นไป'}else S.msg='';
+  if(landOK(b))nextSel();rSetup();return}
+ if(c.t){c.t=0;S.sel='T'}
+ else if(c.s>=0){const k=c.s;dropShip(b,k);S.sel=k}
+ else if(S.sel=='T'){if(c.l&&nT(b)<3){c.t=1;nextSel()}}
+ else if(S.sel!==null&&!b.sh[S.sel].c.length){const cs=cellsOf(i,LEN[S.sel],S.h);if(okCells(b,cs)){putShip(b,S.sel,cs);nextSel()}}
+ rSetup()});
+$('#sb').addEventListener('mouseover',e=>{const t=e.target.closest('.c');if(t&&+t.dataset.i!==S.hov){S.hov=+t.dataset.i;rSetup()}});
+$('#sb').addEventListener('mouseleave',()=>{S.hov=-1;rSetup()});
+$('#pal').addEventListener('click',e=>{const t=e.target.closest('[data-k]');if(!t||S.locked)return;const k=t.dataset.k;S.sel=k=='T'||k=='L'?k:+k;rSetup()});
+const rot=()=>{S.h=!S.h;rSetup()};
+$('#rot').onclick=rot;
+addEventListener('keydown',e=>{if((e.key=='r'||e.key=='R')&&!$('#setup').hidden&&!S.locked)rot()});
+$('#rl').onclick=()=>{S.msg='';genLand(S.b);nextSel();rSetup()};
+$('#cl').onclick=()=>{S.msg='';clearUnits(S.b);S.b.g.forEach(c=>c.l=0);S.sel='L';rSetup()};
+$('#ra').onclick=()=>{S.msg='';clearUnits(S.b);if(!landOK(S.b))genLand(S.b);randT(S.b);while(!randS(S.b)){genLand(S.b);randT(S.b)}nextSel();rSetup()};
+$('#go').onclick=()=>{if(!validBoard(S.b))return;
+ if(MODE=='off')return startOffline(+$('#np').value,$('#md').value);
+ S.locked=true;
+ if(MODE=='host'){const p=PL[0];p.b=dec(enc(S.b));p.rdy=1;pushState();checkReady()}
+ else RM.emit('board',{pid:ME.pid,b:enc(S.b)}).catch(()=>{});
+ rSetup()};
+
+/* ---------- game engine (runs on host / offline) ---------- */
+const code=(b,i)=>{const c=b.g[i];if(!c.x)return'0';if(c.l)return c.t?'t':'l';if(c.s>=0){const s=b.sh[c.s];return s.h==s.n?'k':'h'}return'w'};
+const allow=(pl,me,alive,md)=>{const o=alive.map((a,i)=>i).filter(i=>i!=me&&alive[i]);if(!o.length)return o;
+ const cn=i=>pl.filter(s=>s[0]==i).length,m=Math.min(...o.map(cn));return o.filter(i=>cn(i)==m)};
+const newG=md=>({mode:md,round:0,t:0,phase:'setup',q:[],cur:null,act:[],pl:[],ov:null,fast:false,last:-1,sq:0,nt:[],rs:[],el:[],spd:2200});
+const mkP=(id,name,pid,b)=>({id,name,pid,human:!!pid,b,alive:true,ammo:0,pend:0,plan:[],sub:0,rdy:b?1:0,left:0,hits:[]});
+const say=t=>G.nt.push(t);
+function pub(){const z='0'.repeat(NC);return{ph:G.phase,rd:G.round,md:G.mode,ov:G.ov,act:G.act.map(p=>p.id),pl:G.pl,cur:G.cur?[G.cur.a,G.cur.d,G.cur.i,G.cur.r,G.rs.length]:null,sq:++G.sq,rs:G.rs,nt:G.nt,el:G.el,
+ p:PL.map(p=>({n:p.name,i:p.pid,a:+p.alive,m:p.ammo,r:+(G.phase=='setup'?p.rdy:p.sub),c:p.b?p.b.g.map((_,i)=>code(p.b,i)).join(''):z,k:p.b?p.b.sh.filter(s=>s.h==s.n).map(s=>s.n):[]}))}}
+function pushState(){const v=pub();applyV(v);if(RM&&MODE=='host'){RM.emit('st',v).catch(()=>{});saveSess()}}
+function startOffline(n,md){MODE='off';G=newG(md);G.spd=+$('#spd').value||2200;PL=[mkP(0,ME.name||'คุณ',ME.pid,dec(enc(S.b))),...BN.slice(0,n-1).map((nm,i)=>mkP(i+1,nm,'',mkBot()))];
+ ME.idx=0;LOG=[];HITS=[];HK=new Set();V=null;show('game');startRound()}
+function checkReady(){if(G&&G.phase=='setup'&&PL.every(p=>p.rdy))setTimeout(startRound,600)}
+function startRound(){G.round++;G.pl=[];G.cur=null;G.rs=[];G.nt=[];G.el=[];
+ G.fast=!PL.some(p=>p.human&&p.alive&&!p.left);
+ let act=PL.filter(p=>p.alive);
+ if(G.mode=='seq'){let k=G.t;while(!PL[k%PL.length].alive)k++;G.t=k%PL.length+1;act=[PL[k%PL.length]]}
+ PL.forEach(p=>{p.plan=[];p.sub=0});
+ act.forEach(p=>{p.ammo=1+turAlive(p.b)+p.pend;p.pend=0});
+ G.act=act;G.phase='plan';
+ act.filter(p=>!p.human||p.left).forEach(planBot);
+ pushState();maybeReveal()}
+function maybeReveal(){if(G.phase=='plan'&&G.act.every(p=>p.sub))setTimeout(reveal,G.fast?200:900)}
+function botCell(b,used){const g=b.g,ok=i=>!g[i].x&&!used.includes(i),tg=[];
+ g.forEach((c,i)=>{if(c.x&&c.s>=0&&b.sh[c.s].h<b.sh[c.s].n)nb(i).forEach(j=>{if(ok(j))tg.push(j)})});
+ if(tg.length)return tg[R(tg.length)];
+ const un=g.map((c,i)=>i).filter(ok);if(!un.length)return -1;
+ const pr=un.filter(i=>(rc(i)[0]+rc(i)[1])%2==0),pool=pr.length?pr:un;return pool[R(pool.length)]}
+function planBot(p){p.plan=[];const alive=PL.map(q=>q.alive);
+ for(let k=0;k<p.ammo;k++){const al=allow(p.plan,p.id,alive,G.mode);if(!al.length)break;
+  const hunt=al.filter(d=>PL[d].b.g.some(c=>c.x&&c.s>=0&&PL[d].b.sh[c.s].h<PL[d].b.sh[c.s].n));
+  const pool=hunt.length&&Math.random()<.8?hunt:al,d=pool[R(pool.length)];
+  const i=botCell(PL[d].b,p.plan.filter(s=>s[0]==d).map(s=>s[1]));if(i>=0)p.plan.push([d,i])}
+ p.sub=1}
+function submit(idx,sh){const p=PL[idx];if(!p||G.phase!='plan'||!G.act.includes(p)||p.sub)return;
+ const pl=[],alive=PL.map(q=>q.alive);
+ (Array.isArray(sh)?sh:[]).slice(0,p.ammo).forEach(s=>{const d=+s[0],i=+s[1],q=PL[d];if(!q||d==idx||!q.alive||!(i>=0&&i<NC))return;
+  if(pl.some(z=>z[0]==d&&z[1]==i))return;if(!allow(pl,idx,alive,G.mode).includes(d))return;pl.push([d,i])});
+ p.plan=pl;p.sub=1;pushState();maybeReveal()}
+function reveal(){if(G.phase!='plan')return;G.phase='reveal';G.q=[];G.last=-1;
+ G.act.forEach(p=>p.plan.forEach(s=>G.q.push({a:p.id,d:s[0],i:s[1]})));
+ G.pl=G.act.map(p=>{const m={};p.plan.forEach(s=>m[s[0]]=(m[s[0]]||0)+1);
+  return[p.id,Object.entries(m).map(([d,n])=>PL[d].name+(n>1?' ×'+n:'')).join(', ')||'-']});
+ pushState();setTimeout(step,G.fast?200:Math.min(G.spd,1500))}
+function hit(q,i){const c=q.b.g[i];
+ if(c.l){if(c.t&&!c.x){c.x=1;return'p'}c.x=1;q.pend++;return c.t?'q':'l'}
+ if(c.s>=0){if(c.x)return'd';c.x=1;const s=q.b.sh[c.s];s.h++;return s.h==s.n?'k'+s.n:'h'}
+ c.x=1;return'w'}
+function step(){const e=G.q.shift();if(!e){endRound();return}
+ const r=hit(PL[e.d],e.i);G.cur={a:e.a,d:e.d,i:e.i,r};G.rs.push([e.a,e.d,e.i,r]);
+ if(isSH(r))PL[e.a].hits.push([e.d,e.i,r,G.round]);
+ pushState();setTimeout(step,G.fast?150:G.spd)}
+function endRound(){G.cur=null;
+ PL.forEach(p=>{if(p.alive&&p.b.sh.every(s=>s.h==s.n)){p.alive=false;G.el.push(p.name)}});
+ const al=PL.filter(p=>p.alive);
+ if(al.length<=1){G.phase='over';G.ov=al[0]?al[0].id:-1;pushState();return}
+ G.phase='between';pushState();
+ setTimeout(startRound,G.fast?300:500)}
+
+/* ---------- view (every player renders from V) ---------- */
+const isSH=r=>r=='h'||r=='d'||r[0]=='k';
+function addHit(d,i,r,rd){const k=rd+'|'+d+'|'+i;if(HK.has(k))return;HK.add(k);HITS.push([d,i,r,rd])}
+function memCodes(d){const c=Array(NC).fill('0');HITS.forEach(([x,i,r])=>{if(x==d)c[i]=r[0]=='k'||c[i]=='k'?'k':'h'});return c}
+const RC={w:'w',l:'l',p:'t',q:'t',h:'h',d:'h'};
+function roundCodes(d){const c=memCodes(d);(V.rs||[]).forEach(([a,x,i,r])=>{if(x==d)c[i]=r[0]=='k'?'k':RC[r]||'0'});return c.join('')}
+function roundMarks(d){const m={};(V.rs||[]).forEach(([a,x,i])=>{if(x==d)m[i]=a+1});return m}
+function shotText(e){const[a,d,i,r]=e,P=V.p,w=a==ME.idx?'คุณ':P[a].n,t=d==ME.idx?'คุณ':P[d].n;
+ const m={w:'พลาด',l:`ตกพื้นดิน (${t} +1 กระสุนตาหน้า)`,p:`ทำลายป้อมปืน! (${t} กระสุน −1 ตาหน้า)`,q:`ยิงป้อมที่พังแล้วซ้ำ (${t} +1 กระสุน)`,h:'โดนเรือ!',d:'โดนเรือ (ช่องเดิมซ้ำ)'}[r]||(r[0]=='k'?`จมเรือ ${r.slice(1)} ช่อง!`:'');
+ return`${w} ยิง ${t} ช่อง ${coord(i)} (แถว ${coord(i)[0]} เบอร์ ${rc(i)[1]+1}): ${m}`}
+const hitTxt=([d,i,r,rd])=>`รอบ ${rd}: ยิง ${V&&V.p[d]?V.p[d].n:'?'} ช่อง ${coord(i)}: `+(r[0]=='k'?`จมเรือ ${r.slice(1)} ช่อง!`:r=='d'?'โดนเรือ (ช่องเดิมซ้ำ)':'โดนเรือ!');
+function applyV(v){
+ if(REJ){const k=v.p.findIndex(p=>p.i==ME.pid);if(k<0){REJ=false;$('#lmsg').textContent='ไม่พบที่นั่งของคุณในห้องนี้';return}
+  ME.idx=k;REJ=false;V=null;if(v.ph=='setup'){S.locked=!!v.p[k].r;show('setup')}else show('game');rSetup()}
+ if(v.ph=='plan'&&(!V||V.rd!=v.rd||V.ph!='plan')){PLAN=[];SUB=false;HINT=''}
+ (v.rs||[]).forEach(e=>{if(e[0]==ME.idx&&isSH(e[3]))addHit(e[1],e[2],e[3],v.rd)});
+ V=v;
+ const mp=v.p[ME.idx];
+ if(mp&&mp.a){
+  if(v.ph=='plan'&&v.act.includes(ME.idx)){if(mp.r)SUB=true;else if(SUB&&MODE=='cli')RM.emit('plan',{pid:ME.pid,rd:v.rd,sh:PLAN}).catch(()=>{})}
+  if(MODE=='cli'&&v.ph=='setup'&&S.locked&&!mp.r)RM.emit('board',{pid:ME.pid,b:enc(S.b)}).catch(()=>{})}
+ if(v.ph=='setup'){$('#wait').textContent=`พร้อมแล้ว ${v.p.filter(p=>p.r).length}/${v.p.length} คน`;return}
+ if($('#game').hidden)show('game');
+ render()}
+const dd=c=>(c.match(/t/g)||[]).length;
+const allowedIds=()=>allow(PLAN,ME.idx,V.p.map(p=>!!p.a),V.md);
+function fleetTxt(p){const sunk=[...p.k],d=dd(p.c);
+ return'เรือของคุณ: '+LEN.map(n=>{const x=sunk.indexOf(n);if(x>=0){sunk.splice(x,1);return`<s>${n}</s>`}return n}).join(' ')+` · ป้อมเหลือ ${3-d}/3`}
+function stat(plan){const P=V.p,me=ME.idx,mp=P[me];
+ const nt=(V.nt&&V.nt.length)?`<br><small>${V.nt.map(esc).join(' · ')}</small>`:'';
+ if(V.ph=='over'){const w=V.ov;return`<div class="win">${w<0?'🤝 เสมอ':w==me?'🏆 คุณชนะ!':'⚓ '+esc(P[w].n)+' ชนะ'}</div><button class="b go" id="again">กลับหน้าหลัก</button>`+nt}
+ const head=`<span class="rd">รอบ ${V.rd}</span> `;
+ if(plan){const pl=PLAN.map(s=>`${esc(P[s[0]].n)} ${coord(s[1])}`).join(' · ')||'ยังไม่ได้เลือก';
+  return head+`ถึงเทิร์นยิง เลือกเป้าหมาย <span class="pip">${PLAN.length}/${mp.m}</span> นัด · เลือกได้ตอนนี้: ${allowedIds().map(i=>esc(P[i].n)).join(', ')}<br>${pl}<br>${esc(HINT)} <button class="b go" id="ok" ${PLAN.length==mp.m?'':'disabled'}>ยืนยันการยิง</button>`+nt}
+ if(V.ph=='plan'){const w=V.act.filter(i=>P[i].a&&!P[i].r).map(i=>esc(P[i].n)).join(', ');
+  return head+(V.md=='seq'?`ตาของ ${esc(P[V.act[0]].n)} · `:'')+(V.act.includes(me)&&mp.a?'ส่งแผนแล้ว':'ผู้เล่นกำลังเลือกเป้าหมาย')+(w?` · รอ: ${w}`:'')+nt}
+ const lines=V.pl.map(([id,t])=>`<li${V.cur&&V.cur[0]==id?' class="now"':''}>${esc(P[id].n)} → ${esc(t)}</li>`).join('');
+ if(V.ph=='reveal'){const last=(V.rs||[]).slice(-1)[0];
+  return head+`เปิดเผยการยิง<div class="shot r-${last?last[3][0]:'x'}">${last?esc(shotText(last)):'กำลังเริ่มประกาศ…'}</div><ul class="pl">${lines}</ul>`+nt}
+ return head+'จบรอบ'+(V.el&&V.el.length?` · ตกรอบ: ${V.el.map(esc).join(', ')}`:'')+nt}
+const oppHtml=(q,codes,o,cl='')=>`<div class="opp ${cl}"><h2><b class="nb p${q}">${q+1}</b>${esc(V.p[q].n)}${cl.includes('tgt')?'<span class="tg">กำลังถูกยิง</span>':''}</h2><div class="bd${o.act?' act':''}" data-p="${q}">${bhtml(mkB(),'e',{codes,sel:o.sel,cur:o.cur,rm:o.rm})}</div></div>`;
+function render(){if(!V)return;const me=ME.idx,P=V.p,mp=P[me],plan=V.ph=='plan'&&V.act.includes(me)&&mp.a&&!SUB,al=plan?allowedIds():[],cur=V.cur;
+ $('#stat').innerHTML=stat(plan);$('#stat').className=plan?'stk':'';
+ $('#chips').innerHTML=P.map((p,i)=>`<span class="chip p${i}${i==me?' me':''}${p.a?'':' x'}${V.ph=='reveal'&&V.cur&&V.cur[0]==i?' now':''}"><b class="nb">${i+1}</b>${esc(p.n)}${i==me?' <small>(คุณ)</small>':''}${V.act.includes(i)&&p.a?` <em>กระสุน ${p.m}</em>`:''}${V.ph=='plan'&&V.act.includes(i)&&p.r?' ✓':''}</span>`).join('');
+ let opp='';const tg=V.ph=='reveal'&&cur&&cur[1]==me?' tgt':'';$('#opps').className='row'+(V.ph=='reveal'?' rv':'');
+ if(V.ph=='over')opp=P.map((p,q)=>q==me?'':oppHtml(q,p.c,{})).join('');
+ else if(plan)opp=P.map((p,q)=>{if(q==me)return'';const sel={};PLAN.forEach((s,n)=>{if(s[0]==q)sel[s[1]]=n+1});
+  return oppHtml(q,memCodes(q).join(''),{sel,act:al.includes(q)},(p.a?'':'dead')+(p.a&&!al.includes(q)?' lock':''))}).join('');
+ else if(V.ph=='reveal')opp=P.map((p,q)=>q==me?'':oppHtml(q,roundCodes(q),{cur:cur&&cur[1]==q?cur[2]:-1,rm:roundMarks(q)},(p.a?'':'dead')+(cur&&cur[1]==q?' tgt':''))).join('');
+ else opp='<p class="sub">กระดานคู่ต่อสู้จะแสดงเฉพาะตอนถึงเทิร์นยิง</p>';
+ $('#opps').innerHTML=opp+`<div class="opp${tg}"><h2><b class="nb p${me}">${me+1}</b>น่านน้ำของคุณ${tg?'<span class="tg">กำลังถูกยิง</span>':''}</h2><div class="bd" data-p="${me}">${bhtml(S.b,'m',{codes:mp.c,cur:cur&&cur[1]==me?cur[2]:-1,rm:V.ph=='reveal'?roundMarks(me):null})}</div><p class="fleet">${fleetTxt(mp)}</p></div>`;
+ $('#annw').hidden=V.ph!='reveal';
+ $('#ann').innerHTML=(V.rs||[]).slice().reverse().slice(0,10).map(e=>`<li>${esc(shotText(e))}</li>`).join('');
+ $('#log').innerHTML=HITS.length?HITS.slice().reverse().slice(0,20).map(h=>`<li>${esc(hitTxt(h))}</li>`).join(''):'<li>ยังไม่มี</li>'}
+$('#opps').addEventListener('click',e=>{const t=e.target.closest('.c'),bd=e.target.closest('.bd');if(!t||!bd||!V)return;
+ const me=ME.idx,mp=V.p[me],d=+bd.dataset.p;if(V.ph!='plan'||!V.act.includes(me)||!mp.a||SUB||d==me)return;
+ const i=+t.dataset.i,ex=PLAN.findIndex(s=>s[0]==d&&s[1]==i);
+ if(ex>=0)PLAN.splice(ex,1);
+ else{if(PLAN.length>=mp.m||!V.p[d].a)return;
+  if(!allowedIds().includes(d)){HINT='ห้ามยิงคนเดิมซ้ำ จนกว่าจะเลือกยิงครบทุกคนแล้วจึงยิงคนเดิมได้';render();return}
+  PLAN.push([d,i])}
+ HINT='';render()});
+$('#stat').addEventListener('click',e=>{const id=e.target.id;
+ if(id=='ok'&&V&&PLAN.length==V.p[ME.idx].m&&!SUB){SUB=true;if(MODE=='cli')RM.emit('plan',{pid:ME.pid,rd:V.rd,sh:PLAN}).catch(()=>{});else submit(ME.idx,PLAN);render()}
+ if(id=='again')toHome()});
+
+/* ---------- home, lobby, online ---------- */
+try{ME.name=localStorage.getItem('bs-name')||''}catch(e){}
+$('#nm').value=ME.name;
+const hashCode=()=>location.hash.replace('#','').toLowerCase();
+if(/^[a-z0-9]{4,6}$/.test(hashCode()))$('#jc').value=hashCode();
+function getName(){const n=$('#nm').value.trim().slice(0,12);if(!n){$('#net').textContent='กรอกชื่อของคุณก่อน';$('#nm').focus();return null}
+ ME.name=n;try{localStorage.setItem('bs-name',n)}catch(e){}return n}
+/* Standalone mode: same room API over a WebSocket relay (server.js). Used only when not running inside claude.ai */
+function mkRoomNS(){return{join:name=>new Promise((res,rej)=>{
+ let ws,me=null,peers=[],h={},pc=null,cc=null,closed=false,pres={},retry=0,fails=0,first=true;
+ const send=m=>{if(ws&&ws.readyState==1)ws.send(JSON.stringify(m))};
+ const api={_ws:()=>ws,peers:()=>peers,onPeers(f){pc=f},onConnection(f){cc=f},on(t,f){h[t]=f},
+  emit:async(t,d)=>send({k:'e',t,d}),
+  presence:async p=>{Object.assign(pres,p);send({k:'p',p:pres})},
+  leave:async()=>{closed=true;try{ws.close()}catch(e){}}};
+ function open(){
+  ws=new WebSocket((location.protocol=='https:'?'wss://':'ws://')+location.host+'/ws?room='+encodeURIComponent(name));
+  ws.onopen=()=>{retry=0;send({k:'p',p:pres});if(cc)cc(true);if(first){first=false;res(api)}};
+  ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(_){return}
+   if(m.k=='hello')me=m.id;
+   else if(m.k=='peers'){peers=m.peers.map(x=>({peer:x.id,presence:x.p,isMe:x.id==me}));if(pc)pc(peers)}
+   else if(m.k=='e'&&h[m.t])h[m.t]({peer:m.from,data:m.d,topic:m.t})};
+  ws.onclose=()=>{if(closed)return;if(cc)cc(false);
+   if(first&&++fails>=3){first=false;rej(Object.assign(new Error('ws'),{code:'connect_failed'}));return}
+   setTimeout(open,first?1000:Math.min(1000*(++retry),5000))}}
+ open()})}}
+const isHost=peer=>!!RM&&RM.peers().some(p=>p.peer===peer&&p.presence&&p.presence.host);
+async function enter(code,host,o={}){
+ if(!ROOMNS){if(typeof claude!='undefined'){try{ROOMNS=await claude.use('room')}catch(e){}}else ROOMNS=mkRoomNS()}
+ if(!ROOMNS){$('#net').textContent='ออนไลน์ใช้ไม่ได้ในมุมมองนี้ ต้องเปิดผ่านลิงก์ที่เจ้าของแชร์ให้ (สิทธิ์ผู้มีส่วนร่วมขึ้นไป)';return}
+ try{RM=await ROOMNS.join('bs-'+code)}catch(e){$('#net').textContent='เข้าห้องไม่ได้ ('+(e&&e.code||'error')+')';return}
+ CODE=code;MODE=host?'host':'cli';RDY=false;REJ=!!o.rejoin;GRACE=Date.now()+(o.resume||o.rejoin?5000:0);
+ if(!o.resume){G=null;V=null;S.locked=false}
+ RM.presence({pid:ME.pid,name:ME.name,host:host?1:0,rdy:0}).catch(()=>{});
+ RM.onPeers(lobbyUpdate);
+ let ct=0;RM.onConnection(c=>{clearTimeout(ct);if(c)$('#conn').hidden=true;else ct=setTimeout(()=>{$('#conn').hidden=false},2000)});
+ RM.on('start',m=>{if(MODE=='cli'&&isHost(m.peer)&&m.data)onStart(m.data)});
+ RM.on('st',m=>{if(MODE=='cli'&&isHost(m.peer)&&m.data&&m.data.p)applyV(m.data)});
+ RM.on('plan',m=>{if(MODE=='host'&&G&&m.data&&G.phase=='plan')submit(PL.findIndex(p=>p.pid&&p.pid==m.data.pid),m.data.sh)});
+ RM.on('mem',m=>{if(MODE=='cli'&&isHost(m.peer)&&m.data&&m.data.pid==ME.pid)(m.data.h||[]).forEach(x=>addHit(x[0],x[1],x[2],x[3]))});
+ RM.on('board',m=>{if(MODE=='host'&&G&&G.phase=='setup'&&m.data){const p=PL.find(p=>p.pid&&p.pid==m.data.pid);if(!p||p.rdy)return;
+  p.b=dec(m.data.b);if(!validBoard(p.b))p.b=mkBot();p.rdy=1;pushState();checkReady()}});
+ $('#lc').textContent=code.toUpperCase();$('#lk').value=INVITE+code;
+ $('#lmsg').textContent=o.rejoin?'กำลังกลับเข้าเกมเดิม…':'';$('#rd').textContent='พร้อม';
+ show('lobby');lobbyUpdate();saveSess();
+ if(o.resume)afterResume();
+ if(o.rejoin)setTimeout(()=>{if(REJ&&RM)$('#lmsg').textContent='ยังไม่พบเกมนี้ (เจ้าของห้องอาจออกไปแล้ว) กดออกจากห้องเพื่อกลับหน้าหลัก'},7000);
+ else if(!host)setTimeout(()=>{if(RM&&!$('#lobby').hidden&&!hostPeer())$('#lmsg').textContent='ยังไม่พบเจ้าของห้อง ตรวจรหัสอีกครั้ง'},3500)}
+function peerList(){const seen=new Set(),o=[];(RM?RM.peers():[]).forEach(p=>{const x=p.presence;
+ if(x&&x.pid&&!seen.has(x.pid)){seen.add(x.pid);o.push({pid:x.pid,name:String(x.name||'ผู้เล่น').slice(0,12),host:!!x.host,rdy:!!x.rdy,peer:p.peer,me:x.pid==ME.pid})}});
+ return o.sort((a,b)=>b.host-a.host)}
+const hostPeer=()=>(peerList().find(p=>p.host)||{}).peer;
+function lobbyUpdate(){if(!RM)return;const ps=peerList(),now=Date.now();
+ $('#lp').innerHTML=ps.map((p,i)=>`<li><b class="av p${i}">${esc([...p.name][0]||'?')}</b><span>${esc(p.name)}${p.host?' <small>เจ้าของห้อง</small>':''}${p.me?' <small>(คุณ)</small>':''}</span><span class="rb${p.host||p.rdy?' ok':''}">${p.host||p.rdy?'พร้อม':'รอ'}</span></li>`).join('');
+ $('#hc').hidden=MODE!='host';$('#rd').hidden=MODE!='cli'||REJ;
+ const wait=ps.filter(p=>!p.host&&!p.rdy);
+ if(MODE=='host'){const nb=+$('#nb').value;$('#st0').disabled=!!G||wait.length>0||ps.length+nb<2;
+  if(!G&&!$('#lobby').hidden)$('#lmsg').textContent=ps.length+nb<2?'รอผู้เล่นเข้าร่วม หรือเติมบอทเพื่อเริ่มได้':wait.length?`รอกดพร้อม: ${wait.map(p=>p.name).join(', ')}`:'ทุกคนพร้อมแล้ว เริ่มได้เลย'}
+ else if(!$('#lobby').hidden&&hostPeer()&&!REJ)$('#lmsg').textContent=RDY?'พร้อมแล้ว รอเจ้าของห้องเริ่มเกม…':'กด "พร้อม" เมื่อเตรียมตัวเสร็จ';
+ if(G&&MODE=='host'){const here=new Set(ps.map(p=>p.pid));let ch=false;
+  PL.forEach(p=>{if(!p.pid)return;
+   if(here.has(p.pid)){if(p.gone||p.left)setTimeout(()=>{if(RM)RM.emit('mem',{pid:p.pid,h:p.hits}).catch(()=>{})},900);p.gone=0;if(p.left){p.left=0;ch=true;say(`${p.name} กลับเข้าห้อง`);if(G.phase=='setup'){p.b=null;p.rdy=0}}}
+   else if(!p.left){if(!p.gone){p.gone=now;setTimeout(lobbyUpdate,5300)}
+    else if(now-p.gone>5000&&now>GRACE){p.left=1;ch=true;say(`${p.name} หลุดจากห้อง บอทรับช่วงต่อ`);
+     if(G.phase=='setup'&&!p.rdy){p.b=mkBot();p.rdy=1}
+     if(G.phase=='plan'&&G.act.includes(p)&&!p.sub)planBot(p)}}});
+  pushState();if(ch)setTimeout(pushState,1200);
+  if(G.phase=='setup')checkReady();maybeReveal()}}
+function onStart(d){RDY=false;HITS=[];HK=new Set();ME.idx=(d.p||[]).indexOf(ME.pid);if(ME.idx<0){$('#lmsg').textContent='ห้องนี้เริ่มเกมไปแล้ว';return}
+ LOG=[];V=null;S.locked=false;$('#wait').textContent='';show('setup');rSetup()}
+function hostStart(){if(peerList().some(p=>!p.host&&!p.rdy)){$('#lmsg').textContent='ยังมีคนไม่กดพร้อม';return}
+ const hum=peerList().slice(0,5),nb=Math.min(+$('#nb').value,5-hum.length),pids=hum.map(p=>p.pid);
+ const names=[...hum.map(p=>p.name),...BN.slice(0,nb)];
+ if(names.length<2){$('#lmsg').textContent='ต้องมีอย่างน้อย 2 ผู้เล่น';return}
+ const md=$('#lmode').value;RM.emit('start',{md,n:names,p:pids}).catch(()=>{});
+ G=newG(md);G.spd=+$('#lspd').value||2200;HITS=[];HK=new Set();PL=names.map((nm,id)=>mkP(id,nm,pids[id]||'',pids[id]?null:mkBot()));ME.idx=0;LOG=[];V=null;S.locked=false;
+ show('setup');rSetup();pushState()}
+function toHome(){if(RM){RM.leave().catch(()=>{});RM=null}SS.clear();REJ=false;RDY=false;HITS=[];HK=new Set();$('#conn').hidden=true;MODE='off';G=null;V=null;PL=[];LOG=[];S.locked=false;$('#wait').textContent='';show('home');showRejoin();rSetup()}
+$('#mk').onclick=()=>{if(!getName())return;const a='abcdefghjkmnpqrstuvwxyz23456789';let c='';for(let i=0;i<5;i++)c+=a[R(a.length)];enter(c,true)};
+$('#jn').onclick=()=>{if(!getName())return;const c=$('#jc').value.trim().toLowerCase().replace(/[^a-z0-9]/g,'');if(c.length<4){$('#net').textContent='กรอกรหัสห้อง 5 ตัว';return}enter(c,false)};
+$('#solo').onclick=()=>{if(!getName())return;MODE='off';S.locked=false;show('setup');rSetup()};
+$('#st0').onclick=hostStart;
+$('#lv').onclick=toHome;
+$('#rd').onclick=()=>{RDY=!RDY;$('#rd').textContent=RDY?'ยกเลิกพร้อม':'พร้อม';RM.presence({rdy:RDY?1:0}).catch(()=>{});lobbyUpdate()};
+$('#nb').onchange=lobbyUpdate;
+$('#cp').onclick=()=>{const l=$('#lk');l.select();try{navigator.clipboard.writeText(l.value)}catch(e){try{document.execCommand('copy')}catch(_){}}$('#cp').textContent='คัดลอกแล้ว';setTimeout(()=>$('#cp').textContent='คัดลอกลิงก์',1500)};
+
+/* ---------- session: reconnect after disconnect / reload ---------- */
+const SS={get(){for(const st of['sessionStorage','localStorage']){try{const v=JSON.parse(window[st].getItem('bs-sess')||'null');if(v)return v}catch(e){}}return null},
+ set(o){const j=JSON.stringify(o);['sessionStorage','localStorage'].forEach(st=>{try{window[st].setItem('bs-sess',j)}catch(e){}})},
+ clear(){['sessionStorage','localStorage'].forEach(st=>{try{window[st].removeItem('bs-sess')}catch(e){}})}};
+const serB=b=>b?{e:enc(b),x:b.g.map(c=>c.x?1:0).join(''),h:b.sh.map(s=>s.h)}:null;
+function desB(o){if(!o)return null;const b=dec(o.e);[...o.x].forEach((c,i)=>b.g[i].x=+c);o.h.forEach((h,k)=>b.sh[k].h=h);return b}
+const ser=()=>({G:{mode:G.mode,round:G.round,t:G.t,phase:G.phase,q:G.q,cur:G.cur,act:G.act.map(p=>p.id),pl:G.pl,ov:G.ov,fast:G.fast,last:G.last,sq:G.sq,rs:G.rs,nt:G.nt,el:G.el,spd:G.spd},
+ PL:PL.map(p=>({id:p.id,name:p.name,pid:p.pid,human:p.human,b:serB(p.b),alive:p.alive,ammo:p.ammo,pend:p.pend,plan:p.plan,sub:p.sub,rdy:p.rdy,left:p.left,hits:p.hits}))});
+function des(o){PL=o.PL.map(q=>({...q,b:desB(q.b),gone:0,hits:q.hits||[]}));G=Object.assign(newG(o.G.mode),o.G);G.act=o.G.act.map(i=>PL[i]);ME.idx=0}
+function saveSess(){if(!RM||!CODE)return;SS.set({code:CODE,host:MODE=='host',pid:ME.pid,name:ME.name,b:enc(S.b),h:HITS,g:MODE=='host'&&G?ser():null})}
+function afterResume(){ME.idx=0;LOG=[];V=null;S.locked=!!PL[0].rdy;say('เจ้าของห้องกลับเข้าห้อง');
+ if(G.phase=='setup'){show('setup');rSetup()}else show('game');
+ pushState();
+ if(G.phase=='setup')checkReady();else if(G.phase=='plan')maybeReveal();else if(G.phase=='reveal')setTimeout(step,900);else if(G.phase=='between')setTimeout(startRound,2500)}
+function showRejoin(){const s=SS.get();$('#rjc').hidden=!(s&&s.code);if(s&&s.code)$('#rjt').textContent=`ห้อง ${String(s.code).toUpperCase()}${s.host?' (คุณเป็นเจ้าของห้อง)':''} ยังค้างอยู่ กลับเข้าเกมได้`}
+$('#rj').onclick=()=>{const s=SS.get();if(!s)return;ME.pid=s.pid;ME.name=s.name||$('#nm').value.trim()||'ผู้เล่น';$('#nm').value=ME.name;S.b=dec(s.b);HITS=s.h||[];HK=new Set(HITS.map(x=>x[3]+'|'+x[0]+'|'+x[1]));
+ if(s.host&&s.g){des(s.g);enter(s.code,true,{resume:true})}
+ else if(s.host){$('#net').textContent='ห้องนี้ยังไม่ได้เริ่มเกม สร้างห้องใหม่ได้เลย';SS.clear();showRejoin()}
+ else enter(s.code,false,{rejoin:true})};
+$('#rf').onclick=()=>{SS.clear();showRejoin()};
+showRejoin();
+rSetup();
+</script>
+</body>
+</html>
